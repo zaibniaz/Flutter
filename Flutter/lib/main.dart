@@ -1,38 +1,58 @@
 import 'package:flutter/material.dart';
 
-import 'roleviews/AddNewRoleScreen.dart';
+import './quesitions.dart';
 
-void main() => runApp(MaterialApp(
-  home : MyApp()
-));
+void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+class MyApp extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return _MyAppState();
+  }
+}
+
+class _MyAppState extends State<MyApp> {
+  var _quesitionIndex = 0;
+
+  void _answerQuesition() {
+    setState(() {
+      _quesitionIndex = _quesitionIndex + 1;
+    });
+
+    print(_quesitionIndex);
+  }
+
   @override
   Widget build(BuildContext context) {
+    var quesitionsList = [
+      "what\'s your favourite color?",
+      "what\'s your hobby?"
+    ];
 
-   return Scaffold(
-        appBar : AppBar(
-          title: Text('Flutter Demo'),
-          backgroundColor: Colors.amber,
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('My First App'),
         ),
-        body: Center(
-      
-      
+        body: Column(
+          children: <Widget>[
+            Quesitions(quesitionsList.elementAt(_quesitionIndex)),
+            RaisedButton(
+              onPressed: _answerQuesition,
+              child: Text('Answer 1'),
+            ),
+            RaisedButton(
+              child: Text('Answer 2'),
+              onPressed: _answerQuesition,
+            ),
+            RaisedButton(
+              child: Text('Answer 3'),
+              onPressed: _answerQuesition,
+            ),
+          ],
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: (){
-               Navigator.of(context)
-                .push(MaterialPageRoute(builder: (BuildContext context) {
-              return new AddNewRoleScreen();
-            }));
-          },
-          child: Icon(
-           Icons.add
-          ),
-          backgroundColor: Colors.amber,
-        ),
-      );
+      ),
+    );
+  }
 }
-}
-
